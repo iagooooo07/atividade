@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo de Site - Azul</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --bg-sidebar: #252526;
+            --accent-blue: #0088ff; /* Azul substituindo o vermelho */
+            --text-main: #e1e1e1;
+            --text-muted: #a0a0a0;
+            --border-color: #333333;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background-color: var(--bg-dark);
+            border-bottom: 1px solid var(--border-color);
+            height: 60px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-crow {
+            font-size: 24px;
+            margin-right: 40px;
+            color: var(--text-main);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            height: 100%;
+        }
+
+        .nav-item-custom {
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            position: relative;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-item-custom:hover {
+            color: var(--text-main);
+        }
+
+        .nav-item-custom.active {
+            color: var(--text-main);
+        }
+
+        .nav-item-custom.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--accent-blue);
+            box-shadow: 0 -2px 10px rgba(0, 136, 255, 0.5);
+        }
+
+        /* Layout Principal */
+        .main-wrapper {
+            display: flex;
+            height: calc(100vh - 60px);
+        }
+
+        /* Área de Conteúdo */
+        .content-section {
+            flex: 1;
+            padding: 60px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card-container {
+            background-color: var(--bg-card);
+            width: 100%;
+            max-width: 450px;
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .list-row {
+            padding: 20px 25px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .list-row:hover {
+            background-color: rgba(255,255,255,0.03);
+        }
+
+        .list-row:last-child {
+            border-bottom: none;
+        }
+
+        .icon-box {
+            width: 30px;
+            margin-right: 20px;
+            display: flex;
+            justify-content: center;
+            color: var(--accent-blue);
+            font-size: 22px;
+        }
+
+        .row-content h3 {
+            font-size: 18px;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        .row-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin: 2px 0 0 0;
+        }
+
+        /* Sidebar de Perfil */
+        .profile-sidebar {
+            width: 380px;
+            background-color: var(--bg-sidebar);
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .avatar-circle {
+            width: 140px;
+            height: 140px;
+            background-color: #b0b0b0;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .avatar-circle i {
+            font-size: 110px;
+            color: #f0f0f0;
+            margin-bottom: -10px;
+        }
+
+        .profile-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-name h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .profile-name i {
+            font-size: 18px;
+            color: var(--text-main);
+            cursor: pointer;
+        }
+
+        /* Campos de Input Simulados */
+        .input-group-custom {
+            margin-bottom: 25px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .input-display {
+            color: var(--text-muted);
+            font-size: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #444;
+            word-break: break-all;
+        }
+
+        /* Rodapé da Sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            width: 65px;
+            height: 32px;
+            background-color: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            padding: 0 5px;
+            position: relative;
+        }
+
+        .toggle-knob {
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .toggle-icon {
+            margin-left: auto;
+            color: white;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        .language-flags {
+            display: flex;
+            gap: 12px;
+        }
+
+        .flag {
+            width: 28px;
+            height: 20px;
+            border-radius: 2px;
+            object-fit: cover;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .flag:hover {
+            opacity: 1;
+        }
+
+        /* Responsividade */
+        @media (max-width: 992px) {
+            .main-wrapper {
+                flex-direction: column;
+                height: auto;
+            }
+            .profile-sidebar {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid var(--border-color);
+            }
+            .content-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar-custom">
+        <div class="logo-crow">
+            <i class="bi bi-twitter-x"></i> <!-- Usando um ícone similar ao da imagem -->
+        </div>
+        <div class="nav-links">
+            <a href="site_modelo.html" class="nav-item-custom active">Início</a>
+            <a href="list.html" class="nav-item-custom">Lista</a>
+            <a href="folder.html" class="nav-item-custom">Pasta</a>
+            <a href="user.html" class="nav-item-custom">Perfil</a>
+            <a href="about.html" class="nav-item-custom">Sobre Nós</a>
+        </div>
+    </nav>
+
+    <div class="main-wrapper">
+        <!-- Conteúdo Central -->
+        <main class="content-section">
+            <div class="card-container">
+                <!-- Item Lista -->
+                <div class="list-row">
+                    <div class="icon-box">
+                        <i class="bi bi-check2-all"></i>
+                    </div>
+                    <div class="row-content">
+                        <h3>Lista</h3>
+                        <p>Nº de questões: 12</p>
+                    </div>
+                </div>
+                <!-- Item Questão -->
+                <div class="list-row">
+                    <div class="icon-box" style="visibility: hidden;">
+                        <i class="bi bi-question"></i>
+                    </div>
+                    <div class="row-content">
+                        <h3>Questão</h3>
+                    </div>
+                </div>
+                <!-- Item Pasta -->
+                <div class="list-row">
+                    <div class="icon-box">
+                        <i class="bi bi-folder2"></i>
+                    </div>
+                    <div class="row-content">
+                        <h3>Pasta</h3>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar de Perfil -->
+        <aside class="profile-sidebar">
+            <div class="close-icon">
+                <i class="bi bi-x"></i>
+            </div>
+
+            <div class="avatar-section">
+                <div class="avatar-circle">
+                    <i class="bi bi-person-fill"></i>
+                </div>
+                <div class="profile-name">
+                    <h2>@fulano123</h2>
+                    <i class="bi bi-pencil"></i>
+                </div>
+            </div>
+
+            <div class="input-group-custom">
+                <label class="input-label">email:</label>
+                <div class="input-display">fulanosobrenome122@gmail.com</div>
+            </div>
+
+            <div class="input-group-custom">
+                <label class="input-label">senha</label>
+                <div class="input-display">*********</div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="theme-toggle">
+                    <div class="toggle-knob"></div>
+                    <i class="bi bi-moon-fill toggle-icon"></i>
+                </div>
+                <div class="language-flags">
+                    <img src="https://flagcdn.com/w40/br.png" alt="Brasil" class="flag">
+                    <img src="https://flagcdn.com/w40/us.png" alt="EUA" class="flag">
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
